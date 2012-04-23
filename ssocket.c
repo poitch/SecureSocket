@@ -95,14 +95,14 @@ int ssocket_connect(ssocket *sock)
 
         sock->ssl = SSL_new(sock->ctx);
         if (sock->ssl == NULL) {
-            int err = ERR_get_error();
+            long err = ERR_get_error();
             fprintf(stderr, "Error preparing SSL context: %s\n", ERR_error_string(err, NULL));
         }
                     
         SSL_set_fd(sock->ssl, sock->sd);
 
         if (SSL_connect(sock->ssl) <= 0) {
-            int err = ERR_get_error();
+            long err = ERR_get_error();
             fprintf(stderr, "SSL Connect error: %s\n", ERR_error_string(err, NULL));
             return -1;
         }
